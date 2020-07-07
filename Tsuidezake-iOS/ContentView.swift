@@ -10,7 +10,24 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        TabView {
+            Text("ランキング")
+                .tabItem {
+                    Text("ランキング")
+            }
+            Text("呑みたい")
+                .tabItem {
+                    Text("呑みたい")
+            }
+            Text("呑んだ")
+                .tabItem {
+                    Text("呑んだ")
+            }
+            Text("マイページ")
+                .tabItem {
+                    Text("マイページ")
+            }
+        }
     }
 }
 
