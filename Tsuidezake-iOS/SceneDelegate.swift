@@ -1,8 +1,5 @@
 //
-//  SceneDelegate.swift
 //  Tsuidezake-iOS
-//
-//  Created by vm_shiita on 2020/06/17.
 //  Copyright © 2020 kuaddo. All rights reserved.
 //
 
