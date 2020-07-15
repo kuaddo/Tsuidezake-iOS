@@ -25,7 +25,7 @@ struct WishNormalRowView: View {
 struct WishNormalRowView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            WishNormalRowView(sake: Sake(id: 1, name: "秘幻 吟醸酒", imageUrl: ""))
+            WishNormalRowView(sake: Sake(id: 1, name: "秘幻 吟醸酒", imageUrl: "", area: "草津"))
         }.previewLayout(.fixed(width: 320, height: 84))
     }
 }
