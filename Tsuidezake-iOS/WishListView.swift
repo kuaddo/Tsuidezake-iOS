@@ -15,23 +15,24 @@ struct WishListView: View {
     }
     
     private func getList(_ sakes: [Sake]) -> some View {
-        let groupedSakes = getGroupedSakes(sakes)
-        return List {
-            ForEach(groupedSakes.keys.sorted(), id: \.self) { area in
-                VStack(alignment: .leading, spacing: 0) {
-                    self.getDividerWithText(area: area)
-                    ForEach(groupedSakes[area]!) { sake in
-                        NavigationLink(destination: Text("TODO: add sake detail view")) {
-                            WishNormalRowView(sake: sake)
-                        }
+        func getView(_ item: SakeListItem) -> AnyView {
+            switch item {
+            case .title(let area):
+                return AnyView(self.getDividerWithText(area: area))
+            case .sake(let sake):
+                return AnyView(
+                    NavigationLink(destination: Text("TODO: add sake detail view")) {
+                        WishNormalRowView(sake: sake)
                     }
-                }
+                )
             }
         }
-        .navigationBarTitle(Text("呑みたい"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
-        .onAppear {
-            // TODO: remove it after iOS 14.0
-            UITableView.appearance().separatorColor = .clear
+        
+        return List(convertToSakeListItems(sakes)) { sakeItem in getView(sakeItem)}
+            .navigationBarTitle(Text("呑みたい"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
+            .onAppear {
+                // TODO: remove it after iOS 14.0
+                UITableView.appearance().separatorColor = .clear
         }
     }
     
@@ -43,8 +44,27 @@ struct WishListView: View {
         }
     }
     
-    private func getGroupedSakes(_ sakes: [Sake]) -> [String: [Sake]] {
+    private func convertToSakeListItems(_ sakes: [Sake]) -> [SakeListItem] {
         Dictionary(grouping: sakes) { sake in sake.area }
+            .flatMap { area, sakes in
+                [SakeListItem.title(area: area)] + sakes.map { SakeListItem.sake(sake: $0) }
+        }
+    }
+}
+
+enum SakeListItem {
+    case title(area: String)
+    case sake(sake: Sake)
+}
+
+extension SakeListItem: Identifiable {
+    var id: String {
+        switch self {
+        case .title(let area):
+            return "title:\(area)"
+        case .sake(let sake):
+            return "sake:\(sake.id)"
+        }
     }
 }
 
