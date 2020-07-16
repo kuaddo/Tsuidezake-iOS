@@ -19,6 +19,9 @@ struct WishNormalRowView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(8)
+        .background(Color.white)
+        .cornerRadius(8)
+        .shadow(radius: 2)
     }
 }
 

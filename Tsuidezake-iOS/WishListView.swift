@@ -18,10 +18,13 @@ struct WishListView: View {
         func getView(_ item: SakeListItem) -> AnyView {
             switch item {
             case .title(let area):
-                return AnyView(self.getDividerWithText(area: area))
+                return AnyView(getDividerWithText(area: area))
             case .sake(let sake):
                 return AnyView(
-                    NavigationLink(destination: Text("TODO: add sake detail view")) {
+                    ZStack {
+                        NavigationLink(destination: Text("TODO: add sake detail view")) {
+                            EmptyView()
+                        }
                         WishNormalRowView(sake: sake)
                     }
                 )
@@ -33,6 +36,8 @@ struct WishListView: View {
             .onAppear {
                 // TODO: remove it after iOS 14.0
                 UITableView.appearance().separatorColor = .clear
+                UITableView.appearance().backgroundColor = UIColor(named: "background")
+                UITableViewCell.appearance().backgroundColor = UIColor(named: "background")
         }
     }
     
