@@ -10,7 +10,10 @@ struct ContentView: View {
         TabView {
             Text("ランキング")
                 .tabItem {
-                    Text("ランキング")
+                    VStack {
+                        Image("ic_ranking").renderingMode(.template)
+                        Text("ランキング")
+                    }
             }
             WishListView(
                 sakes: (0..<10).map { id in
@@ -18,17 +21,26 @@ struct ContentView: View {
                 }
             )
                 .tabItem {
-                    Text("呑みたい")
+                    VStack {
+                        Image("ic_sake").renderingMode(.template)
+                        Text("呑みたい")
+                    }
             }
             Text("呑んだ")
                 .tabItem {
-                    Text("呑んだ")
+                    VStack {
+                        Image("ic_tasted").renderingMode(.template)
+                        Text("呑んだ")
+                    }
             }
             Text("マイページ")
                 .tabItem {
-                    Text("マイページ")
+                    VStack {
+                        Image("ic_my_page").renderingMode(.template)
+                        Text("マイページ")
+                    }
             }
-        }
+        }.accentColor(Color("primary"))
     }
 }
 
