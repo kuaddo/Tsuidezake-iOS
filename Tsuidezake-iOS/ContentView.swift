@@ -40,7 +40,7 @@ struct ContentView: View {
                         Text("マイページ")
                     }
             }
-        }
+        }.accentColor(Color("primary"))
     }
 }
 
