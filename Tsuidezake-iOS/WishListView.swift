@@ -39,7 +39,9 @@ struct WishListView: View {
         
         return List {
             ForEach(convertToSakeListItems(sakes)) { sakeItem in
-                getView(sakeItem).listRowBackground(Color("background"))
+                getView(sakeItem)
+                    .listRowBackground(Color("background"))
+                    .listRowInsets(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
             }
         }
         .navigationBarTitle(Text("呑みたい"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
