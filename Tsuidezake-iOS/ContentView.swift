@@ -12,7 +12,11 @@ struct ContentView: View {
                 .tabItem {
                     Text("ランキング")
             }
-            Text("呑みたい")
+            WishListView(
+                sakes: (0..<10).map { id in
+                    Sake(id: id, name: "秘幻 吟醸酒", imageUrl: "", area: id % 2 == 0 ? "草津" : "伊香保")
+                }
+            )
                 .tabItem {
                     Text("呑みたい")
             }
