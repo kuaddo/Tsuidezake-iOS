@@ -8,6 +8,12 @@ import SwiftUI
 struct WishListView: View {
     var sakes: [Sake]
     
+    init(sakes: [Sake]) {
+        self.sakes = sakes
+        UITableView.appearance().separatorColor = .clear
+        UITableView.appearance().backgroundColor = UIColor(named: "background")
+    }
+    
     var body: some View {
         NavigationView {
             getList(sakes)
@@ -31,14 +37,12 @@ struct WishListView: View {
             }
         }
         
-        return List(convertToSakeListItems(sakes)) { sakeItem in getView(sakeItem)}
-            .navigationBarTitle(Text("呑みたい"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
-            .onAppear {
-                // TODO: remove it after iOS 14.0
-                UITableView.appearance().separatorColor = .clear
-                UITableView.appearance().backgroundColor = UIColor(named: "background")
-                UITableViewCell.appearance().backgroundColor = UIColor(named: "background")
+        return List {
+            ForEach(convertToSakeListItems(sakes)) { sakeItem in
+                getView(sakeItem).listRowBackground(Color("background"))
+            }
         }
+        .navigationBarTitle(Text("呑みたい"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
     }
     
     private func getDividerWithText(area: String) -> some View {
