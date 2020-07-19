@@ -21,25 +21,9 @@ struct WishListView: View {
     }
     
     private func getList(_ sakes: [Sake]) -> some View {
-        func getView(_ item: SakeListItem) -> AnyView {
-            switch item {
-            case .title(let area):
-                return AnyView(getDividerWithText(area: area))
-            case .sake(let sake):
-                return AnyView(
-                    ZStack {
-                        NavigationLink(destination: Text("TODO: add sake detail view")) {
-                            EmptyView()
-                        }
-                        WishNormalRowView(sake: sake)
-                    }
-                )
-            }
-        }
-        
-        return List {
+        List {
             ForEach(convertToSakeListItems(sakes)) { sakeItem in
-                getView(sakeItem)
+                self.getRowView(sakeItem)
                     .listRowBackground(Color("background"))
                     .listRowInsets(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
             }
@@ -47,11 +31,19 @@ struct WishListView: View {
         .navigationBarTitle(Text("呑みたい"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
     }
     
-    private func getDividerWithText(area: String) -> some View {
-        HStack {
-            Color("light_gray").frame(width: 32, height: 1)
-            Text(area).padding(.init(top: 8, leading: 0, bottom: 4, trailing: 0))
-            Color("light_gray").frame(maxWidth: .infinity, maxHeight: 1)
+    private func getRowView(_ item: SakeListItem) -> AnyView {
+        switch item {
+        case .title(let area):
+            return AnyView(DividerWithTextView(area: area))
+        case .sake(let sake):
+            return AnyView(
+                ZStack {
+                    NavigationLink(destination: Text("TODO: add sake detail view")) {
+                        EmptyView()
+                    }
+                    WishNormalRowView(sake: sake)
+                }
+            )
         }
     }
     
