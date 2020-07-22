@@ -11,6 +11,7 @@ struct WishListView: View {
     private let SHOW_DETAIL_TAG: Int = 0
     @State var destination: AnyView? = nil
     @State var tag: Int? = nil
+    @State var isGridMode = true
     
     init(sakes: [Sake]) {
         self.sakes = sakes
@@ -19,13 +20,16 @@ struct WishListView: View {
     }
     
     var body: some View {
-        let sakeItems = convertToSakeGridItems(sakes)
+        let sakeItems = isGridMode ?
+            convertToSakeGridItems(sakes) :
+            convertToSakeListItems(sakes)
         return NavigationView {
-            VStack {
+            ZStack(alignment: .topTrailing) {
                 NavigationLink(destination: destination, tag: SHOW_DETAIL_TAG, selection: $tag) {
                     EmptyView()
                 }
                 getList(sakeItems).buttonStyle(PlainButtonStyle())
+                getSwitch().padding(12)
             }
         }
     }
@@ -82,6 +86,40 @@ struct WishListView: View {
     
     private func getSakeDetailView(sake: Sake) -> AnyView {
         AnyView(Text("TODO: Implement sake detail. sake.name = \(sake.name)"))
+    }
+    
+    private func getSwitch() -> some View {
+        HStack(alignment: .center, spacing: 0) {
+            if isGridMode {
+                Image("ic_grid")
+                    .resizable()
+                    .frame(width: 20, height: 20, alignment: .center)
+                    .padding(10)
+                    .foregroundColor(Color("primary"))
+            } else {
+                Image("ic_grid")
+                    .resizable()
+                    .frame(width: 20, height: 20, alignment: .center)
+                    .padding(10)
+                    .foregroundColor(Color.white)
+            }
+            Color.white
+                .frame(width: 2, height: 36, alignment: .center)
+            if isGridMode {
+                Image("ic_list")
+                    .resizable()
+                    .frame(width: 40, height: 40, alignment: .center)
+                    .foregroundColor(Color.white)
+            } else {
+                Image("ic_list")
+                    .resizable()
+                    .frame(width: 40, height: 40, alignment: .center)
+                    .foregroundColor(Color("primary"))
+            }
+        }
+        .background(Color("light_gray"))
+        .cornerRadius(4)
+        .onTapGesture { self.isGridMode.toggle() }
     }
     
     private func convertToSakeListItems(_ sakes: [Sake]) -> [SakeListItem] {
