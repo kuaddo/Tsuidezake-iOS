@@ -8,6 +8,10 @@ import SwiftUI
 struct WishListView: View {
     var sakes: [Sake]
     
+    private let SHOW_DETAIL_TAG: Int = 0
+    @State var destination: AnyView? = nil
+    @State var tag: Int? = nil
+    
     init(sakes: [Sake]) {
         self.sakes = sakes
         UITableView.appearance().separatorColor = .clear
@@ -17,7 +21,12 @@ struct WishListView: View {
     var body: some View {
         let sakeItems = convertToSakeGridItems(sakes)
         return NavigationView {
-            getList(sakeItems)
+            VStack {
+                NavigationLink(destination: destination, tag: SHOW_DETAIL_TAG, selection: $tag) {
+                    EmptyView()
+                }
+                getList(sakeItems).buttonStyle(PlainButtonStyle())
+            }
         }
     }
     
@@ -33,42 +42,46 @@ struct WishListView: View {
     }
     
     private func getRowView(_ item: SakeListItem) -> AnyView {
-        let navigationLink = NavigationLink(destination: Text("TODO: add sake detail view")) {
-            EmptyView()
-        }
-        
         switch item {
         case .title(let area):
             return AnyView(DividerWithTextView(area: area))
         case .sakeForList(let sake):
             return AnyView(
-                ZStack {
-                    navigationLink
+                Button(action: {
+                    self.destination = self.getSakeDetailView(sake: sake)
+                    self.tag = self.SHOW_DETAIL_TAG
+                }) {
                     WishNormalRowView(sake: sake)
                 }
             )
         case .sakeForGrid(let sakes):
             return AnyView(
-                HStack {
+                HStack(alignment: .center, spacing: 8) {
                     ForEach(0..<2, id: \.self) { index in
-                        self.getSakeGridRowView(sake: sakes[index], link: navigationLink)
+                        self.getSakeGridRowView(sake: sakes[index])
                     }
                 }
             )
         }
     }
     
-    private func getSakeGridRowView(sake: Sake?, link: NavigationLink<EmptyView, Text>) -> AnyView {
+    private func getSakeGridRowView(sake: Sake?) -> AnyView {
         if let sake = sake {
             return AnyView(
-                ZStack {
-                    link
+                Button(action: {
+                    self.destination = self.getSakeDetailView(sake: sake)
+                    self.tag = self.SHOW_DETAIL_TAG
+                }) {
                     WishGridRowView(sake: sake)
                 }
             )
         } else {
             return AnyView(Text("").frame(maxWidth: .infinity, maxHeight: 0))
         }
+    }
+    
+    private func getSakeDetailView(sake: Sake) -> AnyView {
+        AnyView(Text("TODO: Implement sake detail. sake.name = \(sake.name)"))
     }
     
     private func convertToSakeListItems(_ sakes: [Sake]) -> [SakeListItem] {
