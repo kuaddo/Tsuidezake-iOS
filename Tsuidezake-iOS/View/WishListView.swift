@@ -85,9 +85,10 @@ struct WishListView: View {
     }
     
     private func convertToSakeListItems(_ sakes: [Sake]) -> [SakeListItem] {
-        Dictionary(grouping: sakes) { sake in sake.area }.flatMap { area, sakes in
-            [SakeListItem.title(area: area)] +
-                sakes.map { SakeListItem.sakeForList(sake: $0) }
+        Dictionary(grouping: sakes) { sake in sake.area }
+            .sorted() { $0.0 < $1.0 }
+            .flatMap { area, sakes in
+                [SakeListItem.title(area: area)] + sakes.map { SakeListItem.sakeForList(sake: $0) }
         }
     }
     
@@ -104,8 +105,10 @@ struct WishListView: View {
             }
         }
         
-        return Dictionary(grouping: sakes) { sake in sake.area }.flatMap { area, sakes in
-            [SakeListItem.title(area: area)] + mapToSakeForGrid(sakes)
+        return Dictionary(grouping: sakes) { sake in sake.area }
+            .sorted() { $0.0 < $1.0 }
+            .flatMap { area, sakes in
+                [SakeListItem.title(area: area)] + mapToSakeForGrid(sakes)
         }
     }
 }
