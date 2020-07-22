@@ -16,8 +16,8 @@ struct ContentView: View {
                     }
             }
             WishListView(
-                sakes: (0..<10).map { id in
-                    Sake(id: id, name: "秘幻 吟醸酒", imageUrl: "", area: id % 2 == 0 ? "草津" : "伊香保")
+                sakes: (0..<11).map { id in
+                    Sake(id: id, name: "秘幻 吟醸酒\(id)", imageUrl: "", area: id > 4 ? "草津" : "伊香保")
                 }
             )
                 .tabItem {

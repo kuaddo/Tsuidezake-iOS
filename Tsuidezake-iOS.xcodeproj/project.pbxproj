@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B56147C24C44AAE00B82133 /* DividerWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B56147B24C44AAE00B82133 /* DividerWithTextView.swift */; };
+		1B56147F24C44E8900B82133 /* WishGridRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B56147E24C44E8800B82133 /* WishGridRowView.swift */; };
+		1B56148224C4A8E300B82133 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B56148124C4A8E300B82133 /* ArrayExtension.swift */; };
 		1B588C4324BDF7A000164AAD /* WishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B588C4224BDF7A000164AAD /* WishListView.swift */; };
 		1B588C4524BDF9FB00164AAD /* WishNormalRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B588C4424BDF9FB00164AAD /* WishNormalRowView.swift */; };
 		1B5D0872249916CB00AC9653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D0871249916CB00AC9653 /* AppDelegate.swift */; };
@@ -38,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B56147B24C44AAE00B82133 /* DividerWithTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerWithTextView.swift; sourceTree = "<group>"; };
+		1B56147E24C44E8800B82133 /* WishGridRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishGridRowView.swift; sourceTree = "<group>"; };
+		1B56148124C4A8E300B82133 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		1B588C4224BDF7A000164AAD /* WishListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListView.swift; sourceTree = "<group>"; };
 		1B588C4424BDF9FB00164AAD /* WishNormalRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishNormalRowView.swift; sourceTree = "<group>"; };
 		1B5D086E249916CB00AC9653 /* Tsuidezake-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tsuidezake-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +88,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B56147824C449F800B82133 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1B588C4224BDF7A000164AAD /* WishListView.swift */,
+				1B588C4424BDF9FB00164AAD /* WishNormalRowView.swift */,
+				1B56147E24C44E8800B82133 /* WishGridRowView.swift */,
+				1B56147B24C44AAE00B82133 /* DividerWithTextView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1B56148024C4A8CD00B82133 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				1B56148124C4A8E300B82133 /* ArrayExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		1B5D0865249916CB00AC9653 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +130,8 @@
 		1B5D0870249916CB00AC9653 /* Tsuidezake-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				1B56148024C4A8CD00B82133 /* Extension */,
+				1B56147824C449F800B82133 /* View */,
 				1BD7A35A24BDFAFE006F8441 /* Data */,
 				1B5D0871249916CB00AC9653 /* AppDelegate.swift */,
 				1B5D0873249916CB00AC9653 /* SceneDelegate.swift */,
@@ -113,8 +140,6 @@
 				1B5D087C249916CB00AC9653 /* LaunchScreen.storyboard */,
 				1B5D087F249916CB00AC9653 /* Info.plist */,
 				1B5D0879249916CB00AC9653 /* Preview Content */,
-				1B588C4224BDF7A000164AAD /* WishListView.swift */,
-				1B588C4424BDF9FB00164AAD /* WishNormalRowView.swift */,
 			);
 			path = "Tsuidezake-iOS";
 			sourceTree = "<group>";
@@ -287,8 +312,11 @@
 				1B5D0872249916CB00AC9653 /* AppDelegate.swift in Sources */,
 				1B5D0874249916CB00AC9653 /* SceneDelegate.swift in Sources */,
 				1BD7A35C24BDFB15006F8441 /* Sake.swift in Sources */,
+				1B56148224C4A8E300B82133 /* ArrayExtension.swift in Sources */,
 				1B5D0876249916CB00AC9653 /* ContentView.swift in Sources */,
+				1B56147F24C44E8900B82133 /* WishGridRowView.swift in Sources */,
 				1B588C4324BDF7A000164AAD /* WishListView.swift in Sources */,
+				1B56147C24C44AAE00B82133 /* DividerWithTextView.swift in Sources */,
 				1B588C4524BDF9FB00164AAD /* WishNormalRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
