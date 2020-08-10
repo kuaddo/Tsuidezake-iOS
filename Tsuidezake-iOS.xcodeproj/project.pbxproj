@@ -91,10 +91,7 @@
 		1B56147824C449F800B82133 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1B588C4224BDF7A000164AAD /* WishListView.swift */,
-				1B588C4424BDF9FB00164AAD /* WishNormalRowView.swift */,
-				1B56147E24C44E8800B82133 /* WishGridRowView.swift */,
-				1B56147B24C44AAE00B82133 /* DividerWithTextView.swift */,
+				1B897B1524E1A7F100E50823 /* WishList */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -168,6 +165,17 @@
 				1B5D0895249916CC00AC9653 /* Info.plist */,
 			);
 			path = "Tsuidezake-iOSUITests";
+			sourceTree = "<group>";
+		};
+		1B897B1524E1A7F100E50823 /* WishList */ = {
+			isa = PBXGroup;
+			children = (
+				1B588C4224BDF7A000164AAD /* WishListView.swift */,
+				1B588C4424BDF9FB00164AAD /* WishNormalRowView.swift */,
+				1B56147E24C44E8800B82133 /* WishGridRowView.swift */,
+				1B56147B24C44AAE00B82133 /* DividerWithTextView.swift */,
+			);
+			path = WishList;
 			sourceTree = "<group>";
 		};
 		1BD7A35A24BDFAFE006F8441 /* Data */ = {
