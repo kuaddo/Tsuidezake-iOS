@@ -22,6 +22,8 @@ struct SakeDetailView: View {
                         .font(.headline)
                         .foregroundColor(Color.black)
                         .padding(.init(top: 16, leading: 16, bottom: 0, trailing: 16))
+                    self.getChipGroup(tags: self.sakeDetail.tags)
+                        .padding(.init(top: 8, leading: 16, bottom: 0, trailing: 16))
                     // TODO: ChipGroup
                     if self.descriptionIsExpanded {
                         Text(self.sakeDetail.description ?? "")
@@ -58,35 +60,51 @@ struct SakeDetailView: View {
                         .padding(.init(top: 12, leading: 16, bottom: 0, trailing: 16))
                     ThermometerView(width: geometry.size.width - 64, suitableTemperatures: self.sakeDetail.suitableTemperatures)
                         .padding(.init(top: 16, leading: 32, bottom: 0, trailing: 32))
-                    self.getTextWithDivider(text: "おすすめのおつまみ")
-                        .padding(.init(top: 24, leading: 16, bottom: 0, trailing: 16))
-                    self.getAppetizerViews(margin: 48)
-                        .frame(width: geometry.size.width - 48 * 2, height: geometry.size.width / 6)
-                        .padding(.init(top: 16, leading: 48, bottom: 0, trailing: 48))
-                    Text("現地で呑めなかった・また呑みたい方はこちらから")
-                        .font(.caption)
-                        .frame(maxWidth: .infinity)
-                        .padding(.init(top: 20, leading: 0, bottom: 0, trailing: 0))
-                    NavigationLink(destination: Text("hoge")) {
-                        HStack(alignment: .center, spacing: 8) {
-                            Image("ic_sake")
-                                .resizable()
-                                .foregroundColor(Color.white)
-                                .frame(width: 24, height: 24)
-                            Text("購入してお家で呑む")
-                                .font(.body)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.white)
-                        }
-                        .padding(8)
-                        .background(Color("primary"))
-                        .cornerRadius(8)
-                        .shadow(radius: 8)
-                    }.frame(maxWidth: .infinity)
-                        .padding(.init(top: 8, leading: 0, bottom: 16, trailing: 0))
+                    Group {
+                        self.getTextWithDivider(text: "おすすめのおつまみ")
+                            .padding(.init(top: 24, leading: 16, bottom: 0, trailing: 16))
+                        self.getAppetizerViews(margin: 48)
+                            .frame(width: geometry.size.width - 48 * 2, height: geometry.size.width / 6)
+                            .padding(.init(top: 16, leading: 48, bottom: 0, trailing: 48))
+                        Text("現地で呑めなかった・また呑みたい方はこちらから")
+                            .font(.caption)
+                            .frame(maxWidth: .infinity)
+                            .padding(.init(top: 20, leading: 0, bottom: 0, trailing: 0))
+                        NavigationLink(destination: Text("hoge")) {
+                            HStack(alignment: .center, spacing: 8) {
+                                Image("ic_sake")
+                                    .resizable()
+                                    .foregroundColor(Color.white)
+                                    .frame(width: 24, height: 24)
+                                Text("購入してお家で呑む")
+                                    .font(.body)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.white)
+                            }
+                            .padding(8)
+                            .background(Color("primary"))
+                            .cornerRadius(8)
+                            .shadow(radius: 8)
+                        }.frame(maxWidth: .infinity)
+                            .padding(.init(top: 8, leading: 0, bottom: 16, trailing: 0))
+                    }
                 }
             }
         }.navigationBarTitle(Text("お酒詳細"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
+    }
+    
+    private func getChipGroup(tags: [String]) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(tags, id: \.self) { tag in
+                    Text(tag)
+                        .font(.caption)
+                        .foregroundColor(Color("primary"))
+                        .padding(.init(top: 3, leading: 6, bottom: 3, trailing: 6))
+                        .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color("primary"), lineWidth: 1))
+                }
+            }
+        }
     }
     
     private func getTextWithDivider(text: String) -> some View {
