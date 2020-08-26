@@ -7,6 +7,7 @@ import SwiftUI
 
 struct SakeDetailView: View {
     let sakeDetail: SakeDetail
+    @State private var descriptionIsExpanded = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -22,18 +23,36 @@ struct SakeDetailView: View {
                         .foregroundColor(Color.black)
                         .padding(.init(top: 16, leading: 16, bottom: 0, trailing: 16))
                     // TODO: ChipGroup
-                    Text(self.sakeDetail.description ?? "")
-                        .lineLimit(3)
-                        .font(.caption)
-                        .padding(.init(top: 12, leading: 16, bottom: 0, trailing: 16))
-                        .fixedSize(horizontal: false, vertical: true)
+                    if self.descriptionIsExpanded {
+                        Text(self.sakeDetail.description ?? "")
+                            .lineLimit(nil)
+                            .font(.caption)
+                            .padding(.init(top: 12, leading: 16, bottom: 0, trailing: 16))
+                            .fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        Text(self.sakeDetail.description ?? "")
+                            .lineLimit(3)
+                            .font(.caption)
+                            .padding(.init(top: 12, leading: 16, bottom: 0, trailing: 16))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                     HStack {
                         Spacer()
-                        // TODO: Implement expansion
-                        Image(systemName: "chevron.down")
-                            .foregroundColor(Color("primary"))
-                            .frame(width: 24, height: 24)
-                            .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 16))
+                        Button(action: {
+                            self.descriptionIsExpanded.toggle()
+                        }) {
+                            if self.descriptionIsExpanded {
+                                Image(systemName: "chevron.up")
+                                    .foregroundColor(Color("primary"))
+                                    .frame(width: 24, height: 24)
+                                    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 16))
+                            } else {
+                                Image(systemName: "chevron.down")
+                                    .foregroundColor(Color("primary"))
+                                    .frame(width: 24, height: 24)
+                                    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 16))
+                            }
+                        }
                     }
                     self.getTextWithDivider(text: "おすすめの呑み方")
                         .padding(.init(top: 12, leading: 16, bottom: 0, trailing: 16))
@@ -133,7 +152,7 @@ struct SakeDetailView_Previews: PreviewProvider {
             sakeDetail: SakeDetail(
                 id: 0,
                 name: "秘幻 吟醸酒",
-                description: "選び抜いた酒造好適米を高精白し、低温でじっくり発酵させました。フルーティできりりとした味わいであっああああああああああああああああああああああああああああああああああああああああああああああああ",
+                description: "選び抜いた酒造好適米を高精白し、低温でじっくり発酵させました。フルーティできりりとした味わいであっああああああああああああああああああああああああああああああああああああああああああああああああaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad;flkajsd;flaksjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
                 brewer: "浅間酒造",
                 imageUrl: "",
                 tags: ["美味い", "辛口", "アルコール度数：中", "浅間酒造"],
