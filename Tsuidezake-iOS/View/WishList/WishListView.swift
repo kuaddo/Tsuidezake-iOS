@@ -30,7 +30,7 @@ struct WishListView: View {
                 }
                 getList(sakeItems).buttonStyle(PlainButtonStyle())
                 getSwitch().padding(12)
-            }
+            }.navigationBarTitle(Text("呑みたい"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
         }
     }
     
@@ -42,7 +42,6 @@ struct WishListView: View {
                     .listRowInsets(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
             }
         }
-        .navigationBarTitle(Text("呑みたい"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
     }
     
     private func getRowView(_ item: SakeListItem) -> AnyView {
@@ -85,7 +84,19 @@ struct WishListView: View {
     }
     
     private func getSakeDetailView(sake: Sake) -> AnyView {
-        AnyView(Text("TODO: Implement sake detail. sake.name = \(sake.name)"))
+        // TODO: remove dummy data
+        AnyView(
+            SakeDetailView(sakeDetail: SakeDetail(
+                id: 0,
+                name: sake.name,
+                description: "選び抜いた酒造好適米を高精白し、低温でじっくり発酵させました。フルーティできりりとした味わいであっああああああああああああああああああああああああああああああああああああああああああああああああ",
+                brewer: "浅間酒造",
+                imageUrl: sake.imageUrl,
+                tags: ["美味い", "辛口", "アルコール度数：中", "浅間酒造"],
+                suitableTemperatures: [.cold, .warm, .hot],
+                goodFoodCategories: [.meat, .dairy, .snack]
+            ))
+        )
     }
     
     private func getSwitch() -> some View {
