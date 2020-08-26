@@ -6,12 +6,23 @@
 import SwiftUI
 
 struct ThermometerView: View {
+    private let width: CGFloat
+    private let height: CGFloat
+    private let circleSize: CGFloat
+    private let lineWeight: CGFloat
+    private let aspectRatio: CGFloat = 302 / 82
+    // TODO: 点の位置が絶妙にズレる。要調査
     private let boundaries: [CGFloat] = [0.13, 0.27, 0.48, 0.69, 0.9]
     private let verticalLinePercent: CGFloat = 0.8
     private let visibleDotIndices: [Int]
     private let visibleLineIndices: [Int]
     
-    init(suitableTemperatures: Set<SuitableTemperature>) {
+    init(width: CGFloat, suitableTemperatures: Set<SuitableTemperature>) {
+        self.width = width
+        height = width / aspectRatio
+        circleSize = width / 40
+        lineWeight = width / 100
+        
         let temperatures: Set<SuitableTemperature>
         if suitableTemperatures.isEmpty {
             temperatures = Set(SuitableTemperature.allCases)
@@ -31,24 +42,22 @@ struct ThermometerView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            return ZStack(alignment: .topLeading) {
-                Image("background_thermometer")
-                    .resizable()
-                    .aspectRatio(3.682926829, contentMode: .fit)
-                ForEach(self.visibleDotIndices, id: \.self) { index in
-                    Circle()
-                        .foregroundColor(Color("primary"))
-                        .position(x: geometry.size.width * self.boundaries[index], y: geometry.size.height * self.verticalLinePercent)
-                        .frame(width: 10, height: 10)
-                }
-                ForEach(self.visibleLineIndices, id: \.self) { index in
-                    Color("primary")
-                        .offset(x: geometry.size.width * self.boundaries[index], y: geometry.size.height * self.verticalLinePercent - 2)
-                        .frame(width: geometry.size.width * self.getLineWidthRatio(index: index), height: 4)
-                }
+        ZStack(alignment: .topLeading) {
+            Image("background_thermometer")
+                .resizable()
+                .aspectRatio(aspectRatio, contentMode: .fit)
+            ForEach(self.visibleDotIndices, id: \.self) { index in
+                Circle()
+                    .foregroundColor(Color("primary"))
+                    .position(x: self.width * self.boundaries[index], y: self.height * self.verticalLinePercent)
+                    .frame(width: self.circleSize, height: self.circleSize)
             }
-        }
+            ForEach(self.visibleLineIndices, id: \.self) { index in
+                Color("primary")
+                    .offset(x: self.width * self.boundaries[index], y: self.height * self.verticalLinePercent - self.lineWeight / 2)
+                    .frame(width: self.width * self.getLineWidthRatio(index: index), height: self.lineWeight)
+            }
+        }.frame(width: width, height: height)
     }
     
     private func getLineWidthRatio(index: Int) -> CGFloat {
@@ -78,8 +87,6 @@ private extension SuitableTemperature {
 
 struct ThermometerView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            ThermometerView(suitableTemperatures: [.cold, .normal, .hot])
-        }.previewLayout(.fixed(width: 302, height: 82))
+        ThermometerView(width: 300, suitableTemperatures: [.cold, .normal, .hot])
     }
 }
