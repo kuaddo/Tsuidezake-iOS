@@ -23,14 +23,12 @@ struct WishListView: View {
         let sakeItems = isGridMode ?
             convertToSakeGridItems(sakes) :
             convertToSakeListItems(sakes)
-        return NavigationView {
-            ZStack(alignment: .topTrailing) {
-                NavigationLink(destination: destination, tag: SHOW_DETAIL_TAG, selection: $tag) {
-                    EmptyView()
-                }
-                getList(sakeItems).buttonStyle(PlainButtonStyle())
-                getSwitch().padding(12)
-            }.navigationBarTitle(Text("呑みたい"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
+        return ZStack(alignment: .topTrailing) {
+            NavigationLink(destination: destination, tag: SHOW_DETAIL_TAG, selection: $tag) {
+                EmptyView()
+            }
+            getList(sakeItems).buttonStyle(PlainButtonStyle())
+            getSwitch().padding(12)
         }
     }
     
