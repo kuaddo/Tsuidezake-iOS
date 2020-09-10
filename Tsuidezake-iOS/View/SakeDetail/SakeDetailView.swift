@@ -8,8 +8,17 @@ import SwiftUI
 struct SakeDetailView: View {
     let sakeDetail: SakeDetail
     @State private var descriptionIsExpanded = false
+    @State private var isAlreadyAddedToWish = false
+    @State private var isAlreadyAddedToTasted = false
     
     var body: some View {
+        VStack(alignment: .center, spacing: 0) {
+            getMainContainer()
+            getBottomContainer()
+        }.navigationBarTitle(Text("お酒詳細"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
+    }
+    
+    private func getMainContainer() -> some View {
         GeometryReader { geometry in
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
@@ -90,7 +99,7 @@ struct SakeDetailView: View {
                     }
                 }
             }
-        }.navigationBarTitle(Text("お酒詳細"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
+        }
     }
     
     private func getChipGroup(tags: [String]) -> some View {
@@ -160,6 +169,59 @@ struct SakeDetailView: View {
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color("gray"), lineWidth: 3))
                     .frame(minWidth: size, idealWidth: size, maxWidth: 60, minHeight: size, idealHeight: size, maxHeight: 60)
             }
+        }
+    }
+    
+    private func getBottomContainer() -> some View {
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 0) {
+                Color("gray").frame(height: 1)
+                HStack(alignment: .center, spacing: 0) {
+                    self.getWishButton(width: geometry.size.width / 2)
+                    Color("gray")
+                        .frame(width: 1, height: 40)
+                        .padding(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
+                    self.getTastedButton(width: geometry.size.width / 2)
+                }
+            }
+        }.frame(height: 50)
+    }
+    
+    private func getWishButton(width: CGFloat) -> some View {
+        if isAlreadyAddedToWish {
+            return getBottomContainerButton(iconName: "ic_sake", text: "呑みたいから削除", tintColor: Color("gray"), width: width) {
+                self.isAlreadyAddedToWish = false
+            }
+        } else {
+            return getBottomContainerButton(iconName: "ic_sake", text: "呑みたいに追加", tintColor: Color("primary"), width: width) {
+                self.isAlreadyAddedToWish = true
+            }
+        }
+    }
+    
+    private func getTastedButton(width: CGFloat) -> some View {
+        if isAlreadyAddedToTasted {
+            return getBottomContainerButton(iconName: "ic_tasted", text: "呑んだから削除", tintColor: Color("gray"), width: width) {
+                self.isAlreadyAddedToTasted = false
+            }
+        } else {
+            return getBottomContainerButton(iconName: "ic_tasted", text: "呑んだに追加", tintColor: Color("primary"), width: width) {
+                self.isAlreadyAddedToTasted = true
+            }
+        }
+    }
+    
+    private func getBottomContainerButton(iconName: String, text: String, tintColor: Color, width: CGFloat, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            VStack(alignment: .center, spacing: 4) {
+                Image(iconName)
+                    .resizable()
+                    .foregroundColor(tintColor)
+                    .frame(width: 20, height: 20)
+                Text(text)
+                    .font(.caption)
+                    .foregroundColor(tintColor)
+            }.frame(width: width)
         }
     }
 }
